@@ -1,96 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-  >
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../static/css/style.css">
-  <title>Генератор мемов</title>
-</head>
-<body>
-  <header class="header">
-    <img src="../static/img/logo.svg" alt="logo" width="50" height="50">
-    <ul class="main-list">
-        <li class="list__item">
-          <a href="">Главная</a>
-        </li>
-        <li class="list__item">
-          <a href="">Коллекция</a>
-        </li>
-        <li class="list__item">
-          <a href="">Связь</a>
-        </li>
-    </ul>
-  </header>
-  <main>
-    {% block content %}
-    <div class="form-block">
-      <h1>Сгенерируй свой мем!</h1>
-      <form method="POST" action="{{ url_for('index') }}">
-        <ul class="form-list">
-          <li class="form-list_item">
-            <label for="image-selector">Выбери мем</label>
-            <select name="image-selector" id="image-selector">
-              <option value="logo.svg" {% if selected_image == 'logo.svg' %}selected{% endif %}>Выбери мем</option>
-              <option value="mem_1.jpeg" {% if selected_image == 'mem_1.jpeg' %}selected{% endif %}>глобальное потепление</option>
-              <option value="mem_2.jpg" {% if selected_image == 'mem_2.jpg' %}selected{% endif %}>ожидание/реальность</option>
-              <!--Задание №1. Добавь сюда новые мемы -->
-              <option value="mem_3.jpg" {% if selected_image == 'mem_3.jpg' %}selected{% endif %}>котик</option>
-              <option value="mem_4.jpg" {% if selected_image == 'mem_4.jpg' %}selected{% endif %}>дед мороз</option>
-              <option value="mem_5.jpg" {% if selected_image == 'mem_5.jpg' %}selected{% endif %}>Человечек</option>
-              <option value="mem_6.jpg" {% if selected_image == 'mem_6.jpg' %}selected{% endif %}>ожиданиеVSреальность</option>
-            </select>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <title>Портфолио</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="header__nav main-nav">
+        <ul class="main-nav__list main-list">
+          <li class="main-list__item list-item">
+            <a class="list-item__link" href="#home">HOME</a>
           </li>
-          <li class="form-list_item">
-            <label for="textTop">Введите текст сверху</label>
-            <input class="input_text" type="text" placeholder="Введите текст" name="textTop">
+          <li class="main-list__item list-item">
+            <a class="list-item__link" href="#about">ABOUT</a>
           </li>
-          <li class="form-list_item">
-            <label for="textBottom">Введите текст снизу</label>
-            <input class="input_text" type="text" placeholder="Введите текст" name="textBottom">
+          <li class="main-list__item list-item">
+            <a class="list-item__link" href="#skills">ABOUT2</a>
           </li>
-          <li class="form-list_item">
-            <label for="color-selector">Цвет текста</label>
-            <select name="color-selector" id="color-selector">
-              <option value="white" {% if selected_color == 'white' %}selected{% endif %}>Белый</option>
-              <option value="black" {% if selected_color == 'black' %}selected{% endif %}>Черный</option>
-              <!--Доп.Задание №1. Добавь сюда новые цвета -->
-
-
-            </select>
-          </li>
-          <li class="form-list_item">
-            <label for="textTop_y">Введите расположение вверхнего текста по Y</label>
-            <input class="input_text" id="textTop_y" type="text" placeholder="Введите текст" name="textTop_y">
-          </li>
-          <li class="form-list_item">
-            <label for="textBottom_y">Введите расположение нижнего текста по Y</label>
-            <input class="input_text" id="textBottom_y" type="text" placeholder="Введите текст" name="textBottom_y">
-          </li>
-          <button type="submit">Выбрать</button>
         </ul>
-      </form>
-    </div>
-    <div class="meme-block" id="memeBlock">
-      
-      <p class="text_top" style="color: {{selected_color}}; top: {{text_top_y}}">
-      
-        {{text_top}}
-      </p>
+      </nav>
+    </header>
+    <main class="main">
+      <!-- Секция превью -->
+      <section class="main__home home" id="home">
+        <h1 class="home__title">NAME SURNAME</h1>
+        <p class="home__subtitle">WEB-DEVELOPER, PYTHON PROGRAMMER</p>
+      </section>
+      <!-- Секция с рассказом о себе -->
+      <section class="main__about about" id="about">
+        <h2 class="about__title">GLOBAL WARMING</h2>
 
-      <img class="meme" src="{{ url_for('serve_images', path=selected_image) }}" alt="{{ selected_image }}">
-
-      <p class="text_bottom" style ="color: {{selected_color}}; bottom: {{text_bottom_y}}"">
-        {{text_bottom}}
-      </p>
-    </div>
-    {% endblock %}
-  </main>
-  <footer>
-
-  </footer>
-</body>
+        <div class="about__info info-block">
+          <p class="info-block__text">
+            Что такое глобальное потепление?
+          </p>
+          <p class="info-block__text">
+            Средние климатические показатели постоянно изменяются. Считается, что Земля уже потеплела на 1,2 градуса из-за промышленных выхлопов, которые еще называют парниковыми газами (с этим разберемся отдельно). Отсчет идет с 1880 года, то есть до промышленной революции. И хоть кажется, что 1,2 градуса - это немного, но ученые еще четыре года назад говорили, что повышение температуры на 1,1 градуса по дополнительному теплу и энергии равно четырем взрывам бомбы Хиросимы в секунду.
+          </p>
+          <p class="info-block__text">
+            Причины глобального потепления
+Парниковые газы были и до промышленности. Это извержения вулканов, лесные пожары и даже дыхание живых организмов, то есть это нормальный процесс. С другой стороны - сейчас воздействие промышленности настолько велико, что процесс пошел быстрее в десятки раз.
+          </p>
+          
+            <img
+            class="info-block__img"
+            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fnews.un.org%2Fru%2Fstory%2F2021%2F08%2F1407862&psig=AOvVaw2WuaERyQkJEWy3bsJGvstP&ust=1712504131225000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPivhpX1rYUDFQAAAAAdAAAAABAE"
+            alt="me"
+            width="250"
+            height="250"
+          />
+        </div>
+      </section>
+      <!-- Секция со скиллами -->
+      <section class="main__skills skills" id="skills">
+        <h2 class="skills__title">Причины роста выбросов</h2>
+       
+  
+          <div class="about__info info-block">
+            <p class="info-block__text">
+              Сжигание угля, нефти и газа
+              Вырубка лесов
+              Увеличение животноводства
+              Выбросы закиси азота удобрениями
+              Выделение фторированных газов оборудованием и продуктами
+              Согласно Carbon Majors, 100 компаний были ответственны за 71% выхлопов с 1988 года по 2015 год, сообщает The Guardian. И это еще раз подтверждает, что все-таки большую часть работы по экологизации должны проводить власти и бизнес.
+            </p>
+          
+              {% if button_python%}
+          <div class="skills__project project" id="project">
+              <img class="project__img" src="../static/img/python-project.png" alt="project" width="500">
+              <a class="project__link" href="">Открыть на GitHub</a>
+          </div>
+        {% endif %}
+      </section>
+      <!-- Секция с формой обратной связи -->
+      <a href="../index_2.html">
+      </section>
+    </main>
+    <!-- Подвал для ссылок на соц-сети -->
+    <footer>
+      <a></a>
+    </footer>
+  </body>
 </html>

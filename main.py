@@ -1,12 +1,35 @@
 #Импорт
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template,request, redirect, send_from_directory
+
 
 
 app = Flask(__name__)
 
-#Результаты формы
-@app.route('/', methods=['GET','POST'])
+#Запуск страницы с контентом
+@app.route('/')
 def index():
+    return render_template('index.html')
+
+
+#Динамичные скиллы
+@app.route('/', methods=['POST'])
+def process_form():
+    button_python = request.form.get('button_python')
+    button_discord = request.form.get('button_discord')
+    return render_template('index.html', 
+                           button_python=button_python,
+                            button_discord=button_discord)
+
+@app.route('/form', methods=['POST'])
+def form_render():
+    name = request.form['name']
+    text = request.form['text']
+    return render_template('form.html',
+                            name=name,
+                            text=text)
+
+@app.route('/meme', methods=['GET','POST'])
+def meme():
     if request.method == 'POST':
         # получаем выбранное изображение
         selected_image = request.form.get('image-selector')
@@ -20,7 +43,7 @@ def index():
         # Задание №3. Получаем цвет текста
         selected_color = request.form["color-selector"]
 
-        return render_template('index.html', 
+        return render_template('index_2.html', 
                                # отображаем выбранное изображение
                                selected_image=selected_image, 
                                
@@ -40,11 +63,11 @@ def index():
                                )
     else:
         # отображаем первое изображение по умолчанию
-        return render_template('index.html', selected_image='logo.svg')
-
+        return render_template('index_2.html', selected_image='logo.svg')
 
 @app.route('/static/img/<path:path>')
 def serve_images(path):
     return send_from_directory('static/img', path)
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
